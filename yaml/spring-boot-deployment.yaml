@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+    spec:
+      containers:
+        - name: spring-boot
+          image: sod723/spring-boot:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://[RDS_ENDPOINT]:3306/[DATABASE_NAME]"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "[RDS_USERNAME]"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "[RDS_PASSWORD]"
